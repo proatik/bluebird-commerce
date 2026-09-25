@@ -5,8 +5,9 @@ Requires Docker and Node 22+.
 ## Start
 
 1. `cp .env.example .env`
-2. `npm install`
-3. `npm run start:clean`
+2. Set `OPENAI_API_KEY` in `.env` to a real key — required to start.
+3. `npm install`
+4. `npm run start:clean`
    - brings up Postgres via `docker-compose`
    - waits for it to become healthy
    - runs migrations
@@ -32,6 +33,7 @@ Full request/response schemas are at `/api/docs`. Quick reference:
 | POST | `/api/orders` | Place an order |
 | GET | `/api/orders` | List orders |
 | GET | `/api/orders/:id` | Get an order |
+| POST | `/api/assistant/chat` | Chat with the shopping assistant |
 
 ## Already running
 

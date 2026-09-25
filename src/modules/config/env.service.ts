@@ -18,4 +18,12 @@ export class EnvService {
   get databaseUrl(): string {
     return this.get('DATABASE_URL');
   }
+
+  get openaiApiKey(): string {
+    return this.get('OPENAI_API_KEY');
+  }
+
+  get openaiModel(): string {
+    return this.get('OPENAI_MODEL');
+  }
 }

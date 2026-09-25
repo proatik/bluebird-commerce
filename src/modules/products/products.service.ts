@@ -1,4 +1,4 @@
-import { and, eq, lte, or, ilike } from 'drizzle-orm';
+import { and, eq, lte, ilike } from 'drizzle-orm';
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 
 import { products } from '@/modules/database/schemas';
@@ -56,12 +56,7 @@ export class ProductsService {
     const conditions = [];
 
     if (filters.q) {
-      conditions.push(
-        or(
-          ilike(products.name, `%${filters.q}%`),
-          ilike(products.description, `%${filters.q}%`)
-        )
-      );
+      conditions.push(ilike(products.name, `%${filters.q}%`));
     }
 
     if (filters.category) {

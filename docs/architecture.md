@@ -12,7 +12,8 @@ bluebird-commerce/
 │   │   ├── database/
 │   │   ├── products/
 │   │   ├── customers/
-│   │   └── orders/
+│   │   ├── orders/
+│   │   └── assistant/
 │   ├── health/
 │   ├── openapi/
 │   ├── validation/
@@ -30,4 +31,5 @@ bluebird-commerce/
 - `products`
 - `customers`
 - `orders`
+- `assistant`
 - `health`

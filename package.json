@@ -34,6 +34,7 @@
     "dotenv": "^18.0.0",
     "drizzle-orm": "^0.45.0",
     "nestjs-zod": "^5.0.0",
+    "openai": "^7.23.0",
     "openapi3-ts": "^4.6.1",
     "postgres": "^3.4.0",
     "reflect-metadata": "^0.2.2",

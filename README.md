@@ -22,7 +22,7 @@ Nest.js · PostgreSQL · Drizzle ORM · Zod · Vitest · npm
 | Task | Status |
 |---|---|
 | 0 — Foundation (products, customers, orders) | Done |
-| 1 — Catalog Q&A assistant | Not started |
+| 1 — Catalog Q&A assistant | Done |
 | 2 — Search / order status / place order via chat | Not started |
 | 3 — Bulk import via pasted link | Not started |
 
@@ -32,12 +32,15 @@ Nest.js · PostgreSQL · Drizzle ORM · Zod · Vitest · npm
 - No UI — REST/chat API only.
 - Single store, no multi-tenancy.
 - Prices are exact decimal (`numeric(10,2)`).
+- Product search matches on name only, not description.
+- Assistant conversation history is in-memory only, resets on server restart.
+- Assistant guardrails kept minimal for this scope — see [`docs/decisions.md`](./docs/decisions.md).
 
 ## External services
 
 | Provider | Purpose | Used by |
 |---|---|---|
-| OpenAI| Chat assistant, structured extraction for bulk import | Task 1, 2, 3 |
+| OpenAI | Chat assistant tool-calling | Task 1 |
 
 ## Running & testing
 

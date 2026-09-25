@@ -5,6 +5,7 @@ import { registry } from '@/openapi/registry';
 import '@/openapi/paths/orders.openapi';
 import '@/openapi/paths/products.openapi';
 import '@/openapi/paths/customers.openapi';
+import '@/openapi/paths/assistant.openapi';
 
 import type { OpenAPIObject } from 'openapi3-ts/oas31';
 
@@ -14,7 +15,7 @@ export function generateOpenApiDocument(): OpenAPIObject {
     info: {
       title: 'BluBird Commerce API',
       version: '0.1.0',
-      description: 'Minimal e-commerce backend — products, customers, orders.'
+      description: 'Minimal e-commerce backend with a chat assistant.'
     },
     servers: [{ url: '/' }]
   });

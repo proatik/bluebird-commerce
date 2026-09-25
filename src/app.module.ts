@@ -5,6 +5,7 @@ import { OrdersModule } from '@/modules/orders/orders.module';
 import { AppConfigModule } from '@/modules/config/config.module';
 import { DatabaseModule } from '@/modules/database/database.module';
 import { ProductsModule } from '@/modules/products/products.module';
+import { AssistantModule } from '@/modules/assistant/assistant.module';
 import { CustomersModule } from '@/modules/customers/customers.module';
 
 @Module({
@@ -14,6 +15,7 @@ import { CustomersModule } from '@/modules/customers/customers.module';
     DatabaseModule,
     ProductsModule,
     AppConfigModule,
+    AssistantModule,
     CustomersModule
   ]
 })
