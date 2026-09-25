@@ -4,13 +4,16 @@ import { registry, idParamSchema, errorResponseSchema } from '@/openapi/registry
 import {
   createProductSchema,
   updateProductSchema,
+  importProductsSchema,
   searchProductsSchema,
   messageResponseSchema,
-  productResponseSchema
+  productResponseSchema,
+  importProductsResponseSchema
 } from '@/validation';
 
 const tags = ['products'];
 const productSchema = registry.register('Product', productResponseSchema);
+const importResultSchema = registry.register('ImportProductsResult', importProductsResponseSchema);
 
 registry.registerPath({
   method: 'post',
@@ -27,6 +30,30 @@ registry.registerPath({
     },
     409: {
       description: 'A product with this SKU already exists.',
+      content: { 'application/json': { schema: errorResponseSchema } }
+    }
+  }
+});
+
+registry.registerPath({
+  method: 'post',
+  path: '/api/products/import',
+  tags,
+  summary: 'Bulk-import products from a pasted link.',
+  request: {
+    body: { content: { 'application/json': { schema: importProductsSchema } } }
+  },
+  responses: {
+    200: {
+      description: 'Import summary.',
+      content: { 'application/json': { schema: importResultSchema } }
+    },
+    400: {
+      description: 'Invalid URL, or the URL targets a disallowed address.',
+      content: { 'application/json': { schema: errorResponseSchema } }
+    },
+    502: {
+      description: 'Fetching the URL failed.',
       content: { 'application/json': { schema: errorResponseSchema } }
     }
   }

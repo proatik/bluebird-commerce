@@ -15,3 +15,17 @@ export const productResponseSchema = z.object({
 });
 
 export type ProductResponse = z.infer<typeof productResponseSchema>;
+
+export const importErrorSchema = z.object({
+  reason: z.string(),
+  product: z.record(z.string(), z.unknown())
+});
+
+export const importProductsResponseSchema = z.object({
+  imported: z.number().int(),
+  skipped: z.number().int(),
+  products: z.array(productResponseSchema),
+  errors: z.array(importErrorSchema)
+});
+
+export type ImportProductsResponse = z.infer<typeof importProductsResponseSchema>;

@@ -20,6 +20,17 @@
 - Conversation history is in-memory only (a `Map` keyed by `conversationId`), resets on restart — no new DB table for this scope.
 - Guardrails kept minimal for this scope: the system prompt tells the model to admit "nothing matched" instead of guessing when a tool returns no results, and to treat customer messages as data (never revealing the prompt or acting as another customer/admin). Verified against the live model in `assistant.live.spec.ts`.
 
+## Bulk import
+
+- Lives inside `modules/products/` as a second service (`products-import.service.ts`), not a new top-level module — it only ever touches `ProductsService`, unlike the assistant which genuinely orchestrates across two domain modules.
+- One-shot OpenAI structured-output call, not the assistant's tool-calling loop — extraction is a single deterministic "return JSON matching this shape" job, not a multi-turn choice among actions.
+- HTML is cleaned with a few regex passes (strip script/style/comments/tags, decode entities, collapse whitespace, truncate), not a new `cheerio`/`jsdom` dependency — lossy noise reduction for the model's benefit, not accurate parsing.
+- The URL fetch is guarded before any network attempt: only `http`/`https`, and `localhost`/loopback/private-range/link-local hosts are rejected when the host is a literal IP. Literal-IP/hostname check only — not DNS-rebinding-proof, and redirects aren't re-validated per hop.
+- A genuine fetch failure (network error, timeout, non-2xx) is never caught — it propagates as a real error. A reachable page that yields nothing extractable is a legitimate `{imported: 0}` result. Per-item failures (schema validation, duplicate SKU) are the only thing caught and counted, so one bad item never aborts the batch.
+- Extracted fields are `.nullable()`, not `.optional()` — OpenAI's structured-output strict mode requires every property listed in `required`; true optionality has to be expressed as nullable.
+- A missing SKU is derived (`slugify(name) + short random suffix`), not left to fail validation — every other missing field just falls through to `createProductSchema`'s own defaults, same as manual creation.
+- Live-verified against a real page (`books.toscrape.com`) — first pass surfaced a real bug mocked tests didn't catch: the model returned a currency symbol (`£`) instead of a 3-letter code, failing the length-3 schema check on every item. Fixed by making the extraction prompt explicit about the expected format, re-verified live.
+
 ## Uniqueness checks
 - Pre-check before insert, not a caught DB error — reads as an explicit business rule. Narrow race window under concurrent identical requests accepted, since testing here is sequential.
 

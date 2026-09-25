@@ -20,8 +20,14 @@ export const searchProductsSchema = z.object({
   maxPrice: z.coerce.number().positive().optional()
 });
 
+export const importProductsSchema = z.object({
+  url: z.url()
+});
+
 export class CreateProductDto extends createZodDto(createProductSchema) {}
 
 export class UpdateProductDto extends createZodDto(updateProductSchema) {}
 
 export class SearchProductsDto extends createZodDto(searchProductsSchema) {}
+
+export class ImportProductsDto extends createZodDto(importProductsSchema) {}

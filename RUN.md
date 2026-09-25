@@ -34,6 +34,7 @@ Full request/response schemas are at `/api/docs`. Quick reference:
 | GET | `/api/orders` | List orders |
 | GET | `/api/orders/:id` | Get an order |
 | POST | `/api/assistant/chat` | Chat with the shopping assistant |
+| POST | `/api/products/import` | Bulk-import products from a pasted link |
 
 ## Already running
 

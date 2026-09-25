@@ -12,19 +12,30 @@ import {
 } from '@nestjs/common';
 
 import { ProductsService } from '@/modules/products/products.service';
+import { ProductsImportService } from '@/modules/products/products-import.service';
 import {
   CreateProductDto,
   UpdateProductDto,
+  ImportProductsDto,
   SearchProductsDto
 } from '@/validation';
 
 @Controller('products')
 export class ProductsController {
-  constructor(private readonly products: ProductsService) {}
+  constructor(
+    private readonly products: ProductsService,
+    private readonly productsImport: ProductsImportService
+  ) {}
 
   @Post()
   create(@Body() body: CreateProductDto) {
     return this.products.create(body);
+  }
+
+  @Post('import')
+  @HttpCode(HttpStatus.OK)
+  import(@Body() body: ImportProductsDto) {
+    return this.productsImport.importFromUrl(body.url);
   }
 
   @Get()
