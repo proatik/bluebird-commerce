@@ -1,0 +1,13 @@
+dist/
+coverage/
+transcripts/
+node_modules/
+
+.env
+*.log
+
+Thumbs.db
+desktop.ini
+
+.claude/
+.transcript-checkpoint
