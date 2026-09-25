@@ -23,7 +23,7 @@ Nest.js · PostgreSQL · Drizzle ORM · Zod · Vitest · npm
 |---|---|
 | 0 — Foundation (products, customers, orders) | Done |
 | 1 — Catalog Q&A assistant | Done |
-| 2 — Search / order status / place order via chat | Not started |
+| 2 — Search / order status / place order via chat | Done |
 | 3 — Bulk import via pasted link | Not started |
 
 ## Assumptions & exclusions
@@ -34,13 +34,14 @@ Nest.js · PostgreSQL · Drizzle ORM · Zod · Vitest · npm
 - Prices are exact decimal (`numeric(10,2)`).
 - Product search matches on name only, not description.
 - Assistant conversation history is in-memory only, resets on server restart.
+- `customerId` is a required chat field, never a model-suppliable tool argument — see [`docs/decisions.md`](./docs/decisions.md).
 - Assistant guardrails kept minimal for this scope — see [`docs/decisions.md`](./docs/decisions.md).
 
 ## External services
 
 | Provider | Purpose | Used by |
 |---|---|---|
-| OpenAI | Chat assistant tool-calling | Task 1 |
+| OpenAI | Chat assistant tool-calling | Task 1, 2 |
 
 ## Running & testing
 
